@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-ia-bixolon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bixolon POS plugin for Cordova.",
   "author": "Nicolaas Pretorius",
   "license": "MIT",
@@ -16,12 +16,6 @@
       "name": "cordova",
       "version": ">=3.0.0"
     }
-  ],
-  "keywords": [
-    "cordova",
-    "plugin",
-    "bixolon",
-    "upos"
   ],
   "repository": {
     "type": "git",
