@@ -1,10 +1,11 @@
 # cordova-plugin-btprinter (ANDROID ONLY)
 A cordova plugin to utilize bluetooth printers that use the ESC POS system. This plugin opens a serial connection with the printer.
 
-This code is adapted from a fork of [Cordova-Plugin-Bluetooth-Printer](https://github.com/srehanuddin/Cordova-Plugin-Bluetooth-Printer), of free use and modifications that will arise for the improvement of the plugin.
+__NOTE: This repository is written and maintained with personal use in mind. As such, I will not be taking on issues, updates, requests and such.__
+_If you are looking for a regularly maintained plugin, look elsewhere._ :-|
 
 ## ESC POS Commands
-Commands can differ amongst manufacturers. Be sure to check with your manufacturer and adapt the commands accordingly.
+Commands can differ among manufacturers. Be sure to check with your manufacturer and adapt the commands accordingly.
 Some examples:
 - [BIXOLON](https://www.bixolon.com/product.php?key=pos) - Select your printer, check under Manuals
 - [EPSON](https://reference.epson-biz.com/modules/ref_escpos/index.php?content_id=72)
