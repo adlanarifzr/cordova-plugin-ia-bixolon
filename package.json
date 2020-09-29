@@ -8,7 +8,7 @@
   "cordova": {
     "id": "cordova-plugin-ia-bixolon",
     "platforms": [
-      "ios"
+      "android"
     ]
   },
   "engines": [
