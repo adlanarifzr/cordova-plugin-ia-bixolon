@@ -1,4 +1,4 @@
-# cordova-plugin-btprinter (ANDROID ONLY)
+# cordova-plugin-ia-bixolon
 A cordova plugin to utilize bluetooth printers that use the ESC POS system. This plugin opens a serial connection with the printer.
 
 __NOTE: This repository is written and maintained with personal use in mind. As such, I will not be taking on issues, updates, requests and such.__
@@ -17,7 +17,10 @@ Some examples:
 ```
 ionic cordova plugin add cordova-plugin-ia-bixolon
 ```
-The plugin gets exposed globally as `BTPrinter`. To appease tha language server and lint, declare the variable at the top of the file as so:
+
+## Usage - ANDROID
+
+The android-side of the plugin gets exposed globally as `BTPrinter`. To appease tha language server and lint, declare the variable at the top of the file as so:
 ```typescript
 declare var BTPrinter: any;
 ```
@@ -191,4 +194,149 @@ declare var BTPrinter: {
   printPOSCommand(commandString: string, fnSuccess: any, fnError: any): any;
   printText(text: string, fnSuccess: any, fnError: any): any;
 };
+```
+---
+## Usage - IOS
+
+The plugin creates the 'global' object `BixolonPrint`. As with all other native plugins, the variable is only accessible once the platform is ready.
+
+Add this to the top of your service outside the component declaration:
+
+```typescript
+declare var BixolonPrint: {
+    discovery(fnSuccess: any, fnError: any): void;
+    connect(portName: string, fnSuccess: any, fnError: any): void;
+    disconnect(fnSuccess: any, fnError: any): void;
+    cutPaper(fnSuccess: any, fnError: any): void;
+    getStatus(printStatus: boolean, fnSuccess: any, fnError: any): void;
+    printText(lines: string[], fnSuccess: any, fnError: any): void;
+    printImage64(imageBase64: string, fnSuccess: any, fnError: any): void;
+    printReceipt(imageBase64: string, lines: string[], fnSuccess: any, fnError: any): void;
+};
+```
+
+## Functions
+### discovery
+```typescript
+BixolonPrint.discovery(
+    (printers: any[]) => {
+        // Array of printers to use here
+    },
+    (error: string) => {
+        // Error handling here
+    }
+);
+```
+
+### connect
+```typescript
+// Best to use the modelName you get from `discovery` here.
+const printerModelName = '_____';
+
+BixolonPrint.connect(printerModelName,
+    (response: any) => {
+        // Yay, connected. You can now do getStatus().
+    },
+    (error: string) => {
+        // Error handling here
+    }
+);
+```
+
+### disconnect
+```typescript
+BixolonPrint.disconnect(
+    (response: any) => {
+        // Now disconnected
+    },
+    (error: string) => {
+        // Error handling here
+    }
+);
+```
+
+### cutPaper
+```typescript
+BixolonPrint.cutPaper(
+    (response: any) => {
+        // Cut command was successful
+    },
+    (error: string) => {
+        // Error handling here
+    }
+);
+```
+
+### getStatus
+```typescript
+BixolonPrint.getStatus(false,
+    (status: any) => {
+        // This part is still TODO, currently status is always null
+    },
+    (error: string) => {
+        // Error handling here
+    }
+);
+```
+
+### printText
+```typescript
+// See BixolonCommands -> bottom of readme
+const lines = ['Line 1', 'Line 2', BixolonCommands.FONT_BOLD, 'Bold Line 3'];
+BixolonPrint.printText(lines,
+    (response: any) => {
+        // yay
+    },
+    (error: string) => {
+        // nay handling here
+    }
+);
+```
+
+### printImage64
+```typescript
+// On iOS, the data length must be a multiple of 4, so pad with '=' as needed.
+const imageBase64 = 'UT/8xQ+AkmQI_________fHl7yvfrsexnr==';
+
+BixolonPrint.printImage64(imageBase64,
+    (response: any) => {
+        // yay
+    },
+    (error: string) => {
+        // nay handling here
+    }
+);
+```
+
+### printReceipt
+Essentialy a combination of printText and printImage. However, when imageBase64 is empty, no image is printed.
+```typescript
+const imageBase64 = 'UT/8xQ+AkmQI_________fHl7yvfrsexnr==';
+const lines = ['Line 1', 'Line 2', BixolonCommands.FONT_BOLD, 'Bold Line 3'];
+
+BixolonPrint.printReceipt(imageBase64, lines,
+    (response: any) => {
+        // yay
+    },
+    (error: string) => {
+        // nay handling here
+    }
+);
+```
+
+### ESC Commands
+```typescript
+// Add these as separate lines amongst your own
+enum BixolonCommands {
+    FONT_A = '[FONTA]',
+    FONT_B = '[FONTB]',
+    FONT_C = '[FONTC]',
+    ALIGN_LEFT = '[LEFT]',
+    ALIGN_CENTER = '[CENTER]',
+    ALIGN_RIGHT = '[RIGHT]',
+    FONT_BOLD = '[BOLD]',
+    FONT_NORMAL = '[NORMAL]',
+    TEXT_SMALL = '[SMALL]',
+    TEXT_MEDIUM = '[MEDIUM]'
+}
 ```
