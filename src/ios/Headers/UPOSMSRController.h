@@ -17,16 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly)    NSString*   Track2Data;
 @property (readonly)    NSString*   Track3Data;
 
+
+/**
+* @brief for multi Connection
+* @param connectionPrinterID to connect printer ID
+*/
+-(NSInteger)open:(NSString*)logicalDeviceName connectionPrinterID:(NSNumber*)connectionPrinterID;
+
 @end
-
-
-
-
-
-
-
-
-
 
 
 @interface UPOSMSRController(BXLDeprecated)

@@ -20,6 +20,7 @@
 - (void) disconnect:(CDVInvokedUrlCommand *)command;
 
 - (void) printText:(CDVInvokedUrlCommand *)command;
+- (void) printQRCode:(CDVInvokedUrlCommand *)command;
 - (void) printImage64:(CDVInvokedUrlCommand *)command;
 
 - (void) printReceipt:(CDVInvokedUrlCommand *)command;

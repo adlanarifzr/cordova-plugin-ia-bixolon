@@ -1,94 +1,17 @@
-//
-// ----------------------------------------
-//
-// File : UPOSDefinesScr.h
-// Date : 20/09/2019
-//
-// ========================================
-        
 
 #ifndef UPOSDefinesScr_h
 #define UPOSDefinesScr_h
 
-
 #include "UPOSDefines.h"
 
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_STATUS_UPDATE_EVENT) {
-    SC_SUE_NO_CARD       DEPRECATED_MSG_ATTRIBUTE("not USE")    = 1,
-    SC_SUE_CARD_PRESENT  DEPRECATED_MSG_ATTRIBUTE("not USE")    = 2
-};
-
 typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_READ_DATA_ACTION) {
-    SC_READ_DATA                                                    =  11,
-    SC_READ_PROGRAM             DEPRECATED_MSG_ATTRIBUTE("not USE") =  12,
-    SC_EXECUTE_AND_READ_DATA    DEPRECATED_MSG_ATTRIBUTE("not USE") =  13,
-    SC_XML_READ_BLOCK_DATA      DEPRECATED_MSG_ATTRIBUTE("not USE") =  14
+    SC_READ_DATA        =  11,
 };
-
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_CAP_INTERFACE_MODE) {
-    SC_CMODE_TRANS       =   1,
-    SC_CMODE_BLOCK       =   2,
-    SC_CMODE_APDU        =   4,
-    SC_CMODE_XML         =   8
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
 
 typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_CAP_ISO_EMV_MODE) {
     SC_CMODE_ISO         =   1,
     SC_CMODE_EMV         =   2
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_CAP_TRANSMISSION_PROTOCOL) {
-    SC_CTRANS_PROTOCOL_T0=   1,
-    SC_CTRANS_PROTOCOL_T1=   2
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_INTERFACE_MODE) {
-    SC_MODE_TRANS        =   1,
-    SC_MODE_BLOCK        =   2,
-    SC_MODE_APDU         =   4,
-    SC_MODE_XML          =   8
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_ISO_EMV_MODE) {
-    SC_MODE_ISO          =   1,
-    SC_MODE_EMV          =   2
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_TRANSMISSION_PROTOCOL) {
-    SC_TRANS_PROTOCOL_T0 =   1,
-    SC_TRANS_PROTOCOL_T1 =   2
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_WRITE_DATA_ACTION) {
-    
-    SC_STORE_DATA        =  21,
-    SC_STORE_PROGRAM     =  22,
-    SC_EXECUTE_DATA      =  23,
-    SC_XML_BLOCK_DATA    =  24,
-    SC_SECURITY_FUSE     =  25,
-    SC_RESET             =  26
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
-
-
-typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_ERROR_EVENT) {
-    
-    UPOS_ESC_READ        = 201,
-    UPOS_ESC_WRITE       = 202,
-    UPOS_ESC_TORN        = 203,
-    UPOS_ESC_NO_CARD     = 204
-}__deprecated_msg("It is unnecessary to call this NS_OPTIONS");
-
-
+};
 
 typedef NS_OPTIONS(NSUInteger, __UPOS_SCR_RESPONSE) {
     _UPOS_SCR_RESPONSE_SUCCESSFUL                       = 0x00,

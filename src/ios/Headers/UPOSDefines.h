@@ -45,7 +45,7 @@ typedef NS_OPTIONS(NSUInteger, __UPOS_RESULT_CODE) {
     UPOS_SUCCESS        = 0,
     
     UPOS_E_CLOSED       DEPRECATED_MSG_ATTRIBUTE("case in, close status") = 101,
-    UPOS_E_CLAIMED      DEPRECATED_MSG_ATTRIBUTE("not use") = 102,
+    UPOS_E_CLAIMED      DEPRECATED_MSG_ATTRIBUTE("already claimed") = 102,
     UPOS_E_NOTCLAIMED   DEPRECATED_MSG_ATTRIBUTE("case in, not claim status") = 103,
     UPOS_E_NOSERVICE    DEPRECATED_MSG_ATTRIBUTE("not use") = 104,
     UPOS_E_DISABLED     DEPRECATED_MSG_ATTRIBUTE("case in, disabled status") = 105,

@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)   NSInteger           RecLineChars;
 @property (readonly)    NSString* _Nullable RecLineCharsList;
 
-
 /**
  * @brief output complete delegate
  */
@@ -28,12 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // Text Encoding Setting
+-(NSInteger)setCharacterSet:(NSInteger)characterSet;
+    
+// Text Encoding Setting
 -(NSInteger)setTextEncoding:(NSStringEncoding)textEncoding;
 
-
 // print text
--(NSInteger)printNormal:(NSInteger)station
-                   data:(NSString*)data;
+-(NSInteger)printNormal:(NSInteger)station data:(NSString*)data;
 
 /**
  * @brief paper cutting
@@ -41,7 +41,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(NSInteger)cutPaper:(NSInteger)percentage;
 
+/**
+ * @brief paper cutting
+ * @param percentage 100 is full Cut, 0~99 is patical Cut
+ * @param feedCut YES: automatically feeds to the cutting postion and then cuts paper. No: no feeds and then cuts paper.
+ */
+- (NSInteger)cutPaper:(NSInteger)percentage feedCut:(BOOL)feedCut;
 
+/**
+* @brief returns a current printer status
+*/
+-(NSInteger)getPrinterStatus;
+    
 /**
  * @brief Print Barcode
  * @param station PTR_S_RECEIPT only
@@ -52,15 +63,20 @@ NS_ASSUME_NONNULL_BEGIN
  * @param alignment barcode alignment
  * @param textPosition barcode HRI
  */
--(NSInteger) printBarcode:(NSInteger)station
-                     data:(NSString*)data
+-(NSInteger) printBarcode:(NSInteger)station data:(NSString*)data
                 symbology:(NSInteger)symbology
                    height:(NSInteger)height
                  barWidth:(NSInteger)barWidth
                 alignment:(NSInteger)alignment
               textPostion:(NSInteger)textPosition;
 
-
+/**
+* @brief Direct IO (byte array value)
+* @param command Not Using
+* @param data Write Data to Printer
+*/
+- (NSInteger) directIO: (NSInteger)command data:(NSData*)data;
+    
 /**
  * @brief Direct IO (byte array value)
  * @param command Not Using
@@ -100,18 +116,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * @brief print Image
  * @param station PTR_S_RECEIPT only
- * @param fileName file full path info
- * @param brightness print brightness
- */
--(NSInteger) printBitmap : (NSInteger) station
-                fileName : (NSString*) fileName
-                   width : (NSInteger) width
-               alignment : (NSInteger) alignment
-              brightness : (NSInteger) brightness;
-
-/**
- * @brief print Image
- * @param station PTR_S_RECEIPT only
  * @param image UIImage Data
  * @param width Print Width
  * @param alignment Print alignment
@@ -121,6 +125,38 @@ NS_ASSUME_NONNULL_BEGIN
                    width : (NSInteger) width
                alignment : (NSInteger) alignment;
 
+/**
+ * @brief print Image
+ * @param station PTR_S_RECEIPT only
+ * @param fileName file full path info
+ * @param width Print Width
+ * @param alignment Print alignment
+ * @param brightness print brightness
+ */
+-(NSInteger) printBitmap : (NSInteger) station
+                fileName : (NSString*) fileName
+                   width : (NSInteger) width
+               alignment : (NSInteger) alignment
+              brightness : (NSInteger) brightness;
+
+
+/**
+* @brief print Image
+* @param station PTR_S_RECEIPT only
+* @param fileName file full path info
+* @param width Print Width
+* @param alignment Print alignment
+* @param brightness print brightness
+* @param compressType  CompressType : None, RLE, LZMA
+* @param dithering  image dithering
+*/
+-(NSInteger) printBitmap : (NSInteger)station
+                fileName : (NSString*)fileName
+                   width : (NSInteger)width
+               alignment : (NSInteger)alignment
+              brightness : (NSInteger)brightness
+            compressType : (NSInteger)compressType
+                dithering: (BOOL)dithering;
 
 /**
  * @brief print Image
@@ -130,22 +166,38 @@ NS_ASSUME_NONNULL_BEGIN
  * @param alignment Print alignment
  * @param brightness Print brightness
  */
--(NSInteger) printBitmap:(NSInteger)station
-                   image:(UIImage*)image
-                   width:(NSInteger)width
-               alignment:(NSInteger)alignment
-              brightness:(NSInteger)brightness;
+-(NSInteger) printBitmap : (NSInteger)station
+                   image : (UIImage*)image
+                   width : (NSInteger)width
+               alignment : (NSInteger)alignment
+              brightness : (NSInteger)brightness;
 
-
+/**
+* @brief print Image
+* @param station PTR_S_RECEIPT only
+* @param image UIImage Data
+* @param width Print Width
+* @param alignment Print alignment
+* @param brightness Print brightness
+* @param compressType  CompressType : None, RLE, LZMA
+* @param dithering  image dithering
+*/
+-(NSInteger) printBitmap: (NSInteger)station
+                   image: (UIImage*)image
+                   width: (NSInteger)width
+               alignment: (NSInteger)alignment
+              brightness: (NSInteger)brightness
+            compressType: (NSInteger)compressType
+               dithering: (BOOL)dithering;
 /**
  * @brief print PDF
  * @param station PTR_S_RECEIPT only
  * @param fileName pdf file full path
  * @param page setting to pdf page number
  */
--(NSInteger) printPDF:(NSInteger)station
-             fileName:(NSString*)fileName
-                 page:(NSInteger)page;
+-(NSInteger) printPDF: (NSInteger)station
+             fileName: (NSString*)fileName
+                 page: (NSInteger)page;
 
 /**
  * @brief print PDF
@@ -156,13 +208,32 @@ NS_ASSUME_NONNULL_BEGIN
  * @param page setting to pdf page number
  * @param brightness print brightness
  */
--(NSInteger) printPDF:(NSInteger)station
-             fileName:(NSString*)fileName
-                width:(NSInteger)width
-            alignment:(NSInteger)alignment
-                 page:(NSInteger)page
-           brightness:(NSInteger)brightness;
+-(NSInteger) printPDF: (NSInteger)station
+             fileName: (NSString*)fileName
+                width: (NSInteger)width
+            alignment: (NSInteger)alignment
+                 page: (NSInteger)page
+           brightness: (NSInteger)brightness;
 
+/**
+* @brief print PDF
+* @param station PTR_S_RECEIPT only
+* @param fileName pdf file full path
+* @param width print Width
+* @param alignment print alignment
+* @param page setting to pdf page number
+* @param brightness print brightness
+* @param compressType  CompressType : None, RLE, LZMA
+* @param dithering  image dithering
+*/
+-(NSInteger) printPDF: (NSInteger)station
+             fileName: (NSString*)fileName
+                width: (NSInteger)width
+            alignment: (NSInteger)alignment
+                 page: (NSInteger)page
+           brightness: (NSInteger)brightness
+         compressType: (NSInteger)compressType
+            dithering: (BOOL)dithering;
 
 /**
  * @brief transaction mode
@@ -218,6 +289,36 @@ NS_ASSUME_NONNULL_BEGIN
  * @brief page mode printing
  */
 - (NSInteger)printDataInPageMode;
+
+
+/**
+ * @brief page mode box draw
+ * @param startPosX (0~832)
+ * @param startPosY (0~65535)
+ * @param endPosX (0~832)
+ * @param endPosY (0~65535)
+ * @param thickness (0~16)
+ */
+- (NSInteger)drawBoxInPageMode:(NSUInteger)startPosX
+                     startPosY:(NSUInteger)startPosY
+                       endPosX:(NSUInteger)endPosX
+                       endPosY:(NSUInteger)endPosY
+                     thickness:(NSUInteger)thickness;
+
+/**
+* @brief page mode box line
+* @param startPosX (0~832)
+* @param startPosY (0~65535)
+* @param endPosX (0~832)
+* @param endPosY (0~65535)
+* @param thickness (0~16)
+*/
+- (NSInteger)drawLineInPageMode:(NSUInteger)startPosX
+                      startPosY:(NSUInteger)startPosY
+                        endPosX:(NSUInteger)endPosX
+                        endPosY:(NSUInteger)endPosY
+                      thickness:(NSUInteger)thickness;
+
 @end
 /*------------------------------------------------------------------------------------*/
 
@@ -356,7 +457,7 @@ __deprecated_msg("It is unnecessary to call this API");
                     width:(NSInteger)width
                 alignment:(NSInteger)alignment
               textPostion:(NSInteger)textPosition
-__deprecated_msg("It is unnecessary to call this API");
+__deprecated_msg("ㅣIt is unnecessary to call this API");
 
 -(NSInteger) printBitmap : (NSInteger) station
                    image : (UIImage*) image
@@ -573,8 +674,8 @@ __deprecated_msg("It is unnecessary to call this property");
 @property               NSInteger   CartridgeNotify
 __deprecated_msg("It is unnecessary to call this property");
 
-@property (nonatomic)   NSInteger   CharacterSet
-__deprecated_msg("It is unnecessary to call this property");
+//@property (nonatomic)   NSInteger   CharacterSet
+//__deprecated_msg("It is unnecessary to call this property");
 
 @property (readonly)    NSInteger   ErrorLevel
 __deprecated_msg("It is unnecessary to call this property");

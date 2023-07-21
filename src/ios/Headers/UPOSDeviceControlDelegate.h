@@ -12,16 +12,17 @@
 
 
 @protocol UPOSDeviceControlDelegate <NSObject>
-@required
 @optional
-
 -(void)DataEvent:(NSNumber*) status;
+-(void)DataEvent:(NSNumber*) status data:(NSData*) data;
 
 /**
  * @brief AsyncMode On
  * @param outputID not use value is only 0
  */
 -(void)OutputCompleteEvent:(NSNumber*)outputID;
+
+-(void)DisconnectedEvent;
 
 -(void)StatusUpdateEvent:(NSNumber*) status;
 

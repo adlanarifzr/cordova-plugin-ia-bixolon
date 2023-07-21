@@ -191,6 +191,16 @@ CDVPluginResult *pluginResult = nil;
     return result;
 }
 
+- (void) printQRCode:(CDVInvokedUrlCommand *)command
+{
+    NSLog(@"[CDVBixolonPrint] printQRCode");
+    NSString* text = [command.arguments objectAtIndex:0];
+
+    NSInteger result = [printerController printBarcode:PTR_S_RECEIPT data:text symbology:PTR_BCS_QRCODE height:6 barWidth:6 alignment:PTR_BC_CENTER textPostion:PTR_BC_TEXT_NONE];
+    
+    [self handleResult:result command:command successMessage:@"QR printed" errorMessage:@"Failed to print QR"];
+}
+
 - (void) printImage64:(CDVInvokedUrlCommand *)command
 {
     NSLog(@"[CDVBixolonPrint] printImage64");

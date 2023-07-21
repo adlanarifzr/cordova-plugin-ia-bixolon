@@ -7,7 +7,6 @@
 // ========================================
 
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol UPOSDevicesDelegate <NSObject>
@@ -56,8 +55,10 @@ __deprecated_msg("It is unnecessary to call this Delegate");
 */
 -(NSArray*)getList;
 
+-(NSArray*)getList:(id)deviceType;
+
 /**
- * @brief Register Printer
+ * @brief Registers a device
  * @param device device type is [UPOSPrinter/UPOSMSR/UPOSSCR/UPOSCD]
  * @discussion Registered device information is permanently stored.
  * @returns Only return NO, Not Used
@@ -65,13 +66,18 @@ __deprecated_msg("It is unnecessary to call this Delegate");
 -(BOOL) addDevice:(id)device;
 
 /**
- * @brief Register Printer Delete
+ * @brief Removes the registered device from the list
  * @param device device type is [UPOSPrinter/UPOSMSR/UPOSSCR/UPOSCD]
- * @discussion Registered device information is permanently removed.
  * @returns Remove Success is return YES, Fail is NO return
  */
 -(BOOL) removeDevice:(id)device;
 
+
+/**
+ * @brief Removes all the registered device from the list
+ */
+-(void) removeAllDevices;
+    
 /**
  * @brief not Use
  * @returns Only return YES, Not Used
@@ -109,7 +115,7 @@ __deprecated_msg("It is unnecessary to call this API");
 
 
 
-@interface UPOSPrinter:UPOSDevice<NSCopying>   @end
+@interface UPOSPrinter:UPOSDevice   @end
 @interface UPOSPrinters:UPOSDevices @end
 
 

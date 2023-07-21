@@ -9,14 +9,10 @@
 
 #import "UPOSDefines.h"
 #import "UPOSDefinesPrinter.h"
-
 #import "UPOSDeviceControlDelegate.h"
 #import "UPOSDevices.h"
 
-
-
 @interface UPOSDeviceController : NSObject {
-    
     // ADD Device List
     UPOSDevices *_listOfDevices     __deprecated_msg("not use");
     NSInteger   _controlLevel       __deprecated_msg("not use");
@@ -26,13 +22,17 @@
     NSInteger   _ResultCode         __deprecated_msg("not use");
 };
 
-@property (nonatomic)           id<UPOSDeviceControlDelegate>    delegate;
-@property (atomic, readonly)    UPOSDevice *targetDevice;
-@property (readonly)            float       DeviceControlVersion;
-@property (readonly)            NSString*   DeviceControlDescription;
+@property (nonatomic) id<UPOSDeviceControlDelegate> delegate;
+@property (atomic, readonly) UPOSDevice* targetDevice;
+@property (readonly) float DeviceControlVersion;
+@property (readonly) NSString* DeviceControlDescription;
+@property (readwrite) BOOL DeviceEnabled;    // Device Enabled is return YES, Device Disabled is return NO
+@property (readonly) NSNumber* objID;        // for multiconnection ID
 
-// Device Enabled is return YES, Device Disabled is return NO
-@property(readwrite)    BOOL DeviceEnabled;
+
++(void) setEnableLog:(BOOL)printLog saveFile:(BOOL)saveFile saveToHex:(BOOL)saveToHex;
+
++(NSString* __nonnull) getVersionDescription;
 
 
 /**
@@ -46,14 +46,14 @@
 -(void)setLogLevel:(Byte)level;
 
 
--(NSInteger) directIO : (NSInteger)command
+- (NSInteger) directIO: (NSInteger)command data:(NSData*)data;
+
+- (NSInteger) directIO : (NSInteger)command
                  data : (void*)data
                object : (void*)object;
 
 
 -(NSMutableArray*) getSupportDeviceStrings;
-
-
 
 
 //MARK: - Delete API
@@ -134,6 +134,7 @@
 -(NSInteger)open:(NSString*)logicalDeviceName;
 -(NSInteger)open:(NSString*)logicalDeviceName address:(NSString*)address ;
 -(NSInteger)open:(NSString*)logicalDeviceName serialNumber:(NSString*)serialNumber;
+-(NSInteger)open:(NSString*)logicalDeviceName connectionPrinterID:(NSNumber*)connectionPrinterID;
 
 -(NSInteger)claim:(NSInteger)timeout;
 
